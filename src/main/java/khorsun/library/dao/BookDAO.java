@@ -28,5 +28,13 @@ public class BookDAO {
 
     }
 
+    public List<Book> showBookForPerson(int id){
+        return jdbcTemplate.query("select spring_app.public.book.name,spring_app.public.book.author," +
+                        "spring_app.public.book.year from spring_app.public.book inner join" +
+                        " spring_app.public.person p on book.person_id = p.person_id  " +
+                        "where p.person_id=?",
+                new Object[]{id},new BeanPropertyRowMapper<>(Book.class));
+    }
+
 
 }

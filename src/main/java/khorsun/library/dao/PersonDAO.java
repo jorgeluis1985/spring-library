@@ -18,7 +18,7 @@ public class PersonDAO {
     }
 
     public List<Person> index(){
-        return jdbcTemplate.query("select distinct spring_app.public.person.name, " +
+        return jdbcTemplate.query("select spring_app.public.person.name, " +
                         "spring_app.public.person.year from spring_app.public.person",
                 new BeanPropertyRowMapper<>(Person.class));
     }
@@ -27,4 +27,11 @@ public class PersonDAO {
         jdbcTemplate.update("insert into spring_app.public.person( name, year) values(?,?)",
                 person.getName(),person.getYear());
     }
+
+    public Person show(int id){
+         return jdbcTemplate.query("select spring_app.public.person.name," +
+                "spring_app.public.person.year from spring_app.public.person where person_id=?",new Object[]{id},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
+    }
+
 }

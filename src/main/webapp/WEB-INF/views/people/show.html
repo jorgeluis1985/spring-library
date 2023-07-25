@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${person.getName()+', '+person.getYear()}">VALUE</p>
+<hr/>
+<div th:each="oneBook : ${book}">
+    <a th:text="${oneBook.getName()+', '+oneBook.getAuthor()+', '+oneBook.getYear()}">VALUE</a>
+</div>
+</body>
+</html>
