@@ -22,4 +22,9 @@ public class PersonDAO {
                         "spring_app.public.person.year from spring_app.public.person",
                 new BeanPropertyRowMapper<>(Person.class));
     }
+
+    public void create(Person person){
+        jdbcTemplate.update("insert into spring_app.public.person( name, year) values(?,?)",
+                person.getName(),person.getYear());
+    }
 }
