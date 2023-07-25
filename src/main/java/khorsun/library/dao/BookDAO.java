@@ -21,4 +21,12 @@ public class BookDAO {
         return jdbcTemplate.query("select * from spring_app.public.book",
                 new BeanPropertyRowMapper<>(Book.class));
     }
+
+    public void create(Book book){
+        jdbcTemplate.update("insert into spring_app.public.book(name, author, year) VALUES(?,?,?)",
+                book.getName(),book.getAuthor(),book.getYear());
+
+    }
+
+
 }
