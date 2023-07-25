@@ -1,4 +1,4 @@
-package model;
+package khorsun.library.model;
 
 public class Book {
     private int bookId;
