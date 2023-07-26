@@ -18,7 +18,7 @@ public class BookDAO {
     }
 
     public List<Book> index(){
-        return jdbcTemplate.query("select name,author,year from spring_app.public.book",
+        return jdbcTemplate.query("select book_id,name,author,year from spring_app.public.book",
                 new BeanPropertyRowMapper<>(Book.class));
     }
 
@@ -34,6 +34,11 @@ public class BookDAO {
                         " spring_app.public.person p on book.person_id = p.person_id  " +
                         "where p.person_id=?",
                 new Object[]{id},new BeanPropertyRowMapper<>(Book.class));
+    }
+
+    public Book show(int id){
+        return jdbcTemplate.query("select * from spring_app.public.book where book_id=?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class)).stream().findAny().orElse(null);
     }
 
 
