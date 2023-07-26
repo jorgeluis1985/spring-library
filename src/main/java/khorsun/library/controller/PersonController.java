@@ -6,6 +6,7 @@ import khorsun.library.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -55,6 +56,11 @@ public class PersonController {
     @PatchMapping("/{id}")
     public String edit(@PathVariable("id") int id,@ModelAttribute("person") Person person){
         personDAO.edit(person,id);
+        return "redirect:/people";
+    }
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id){
+        personDAO.delete(id);
         return "redirect:/people";
     }
 

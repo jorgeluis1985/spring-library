@@ -37,5 +37,8 @@ public class PersonDAO {
         jdbcTemplate.update("update spring_app.public.person set name=?,year=? where person_id=?",
                 person.getName(),person.getYear(),id);
     }
+    public void delete(int id){
+        jdbcTemplate.update("delete from spring_app.public.person where person_id=?",id);
+    }
 
 }
