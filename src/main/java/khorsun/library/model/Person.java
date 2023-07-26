@@ -2,6 +2,7 @@ package khorsun.library.model;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Person {
@@ -9,6 +10,7 @@ public class Person {
 
     @NotEmpty(message = "Should not be empty")
     @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters")
+    @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+", message = "Name Surname")
     private String fullName;
 
     @Min(value = 1900, message = "Year should be greater then 1900")
