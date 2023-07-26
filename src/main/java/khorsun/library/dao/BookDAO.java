@@ -18,7 +18,7 @@ public class BookDAO {
     }
 
     public List<Book> index(){
-        return jdbcTemplate.query("select * from spring_app.public.book",
+        return jdbcTemplate.query("select name,author,year from spring_app.public.book",
                 new BeanPropertyRowMapper<>(Book.class));
     }
 

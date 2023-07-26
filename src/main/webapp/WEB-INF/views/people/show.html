@@ -6,9 +6,11 @@
 </head>
 <body>
 <p th:text="${person.getName()+', '+person.getYear()}">VALUE</p>
+<a th:href="@{/people/{id}/edit(id=${person.getPersonId()})}">Edit</a>
 <hr/>
 <div th:each="oneBook : ${book}">
     <a th:text="${oneBook.getName()+', '+oneBook.getAuthor()+', '+oneBook.getYear()}">VALUE</a>
 </div>
+
 </body>
 </html>

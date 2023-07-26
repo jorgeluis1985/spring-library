@@ -2,16 +2,15 @@ package khorsun.library.model;
 
 public class Person {
     private int personId;
-    private int bookId;
     private String name;
     private int year;
 
     public Person() {
     }
 
-    public Person(int personId, int bookId, String name, int year) {
+    public Person(int personId,  String name, int year) {
         this.personId = personId;
-        this.bookId = bookId;
+
         this.name = name;
         this.year = year;
     }
@@ -24,13 +23,7 @@ public class Person {
         this.personId = personId;
     }
 
-    public int getBookId() {
-        return bookId;
-    }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
 
     public String getName() {
         return name;
