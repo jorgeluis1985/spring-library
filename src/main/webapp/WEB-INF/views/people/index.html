@@ -5,11 +5,16 @@
     <title>Index</title>
 </head>
 <body>
-<div th:each="people : ${person}">
-    <a th:href="@{/people/{id}(id=${people.getPersonId()})}"
-       th:text="${people.getName()}+', '+${people.getYear()}">VALUE</a>
+
+<div th:each="person : ${people}">
+    <a th:href="@{/people/{id}(id=${person.getId()})}"
+       th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">user</a>
 </div>
+
+<br/>
 <hr/>
-<a th:href="@{/people/new}">Create new person</a>
+
+<a href="/people/new">Add person</a>
+
 </body>
 </html>

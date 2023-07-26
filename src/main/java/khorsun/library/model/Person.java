@@ -1,43 +1,50 @@
 package khorsun.library.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Person {
-    private int personId;
-    private String name;
-    private int year;
+    private int id;
+
+    @NotEmpty(message = "Should not be empty")
+    @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters")
+    private String fullName;
+
+    @Min(value = 1900, message = "Year should be greater then 1900")
+    private int yearOfBirth;
+
 
     public Person() {
+
     }
 
-    public Person(int personId,  String name, int year) {
-        this.personId = personId;
-
-        this.name = name;
-        this.year = year;
+    public Person(String fullName, int yearOfBirth) {
+        this.fullName = fullName;
+        this.yearOfBirth = yearOfBirth;
     }
 
-    public int getPersonId() {
-        return personId;
+    public int getId() {
+        return id;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-
-
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public int getYear() {
-        return year;
+    public int getYearOfBirth() {
+        return yearOfBirth;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setYearOfBirth(int yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
 }

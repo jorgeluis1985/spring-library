@@ -1,45 +1,66 @@
 package khorsun.library.dao;
 
 import khorsun.library.model.Book;
+import khorsun.library.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BookDAO {
 
     private final JdbcTemplate jdbcTemplate;
+
     @Autowired
     public BookDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Book> index(){
-        return jdbcTemplate.query("select book_id,name,author,year from spring_app.public.book",
-                new BeanPropertyRowMapper<>(Book.class));
+    public List<Book> index() {
+        return jdbcTemplate.query("SELECT * FROM spring_app.public.book", new BeanPropertyRowMapper<>(Book.class));
     }
 
-    public void create(Book book){
-        jdbcTemplate.update("insert into spring_app.public.book(name, author, year) VALUES(?,?,?)",
-                book.getName(),book.getAuthor(),book.getYear());
-
+    public Book show(int id) {
+        return jdbcTemplate.query("SELECT * FROM spring_app.public.book WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
+                .stream().findAny().orElse(null);
     }
 
-    public List<Book> showBookForPerson(int id){
-        return jdbcTemplate.query("select spring_app.public.book.name,spring_app.public.book.author," +
-                        "spring_app.public.book.year from spring_app.public.book inner join" +
-                        " spring_app.public.person p on book.person_id = p.person_id  " +
-                        "where p.person_id=?",
-                new Object[]{id},new BeanPropertyRowMapper<>(Book.class));
+    public void save(Book book) {
+        jdbcTemplate.update("INSERT INTO spring_app.public.book(title, author, year) VALUES(?, ?, ?)", book.getTitle(),
+                book.getAuthor(), book.getYear());
     }
 
-    public Book show(int id){
-        return jdbcTemplate.query("select * from spring_app.public.book where book_id=?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Book.class)).stream().findAny().orElse(null);
+    public void update(int id, Book updatedBook) {
+        jdbcTemplate.update("UPDATE spring_app.public.book SET title=?, author=?, year=? WHERE id=?", updatedBook.getTitle(),
+                updatedBook.getAuthor(), updatedBook.getYear(), id);
     }
 
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM spring_app.public.book WHERE id=?", id);
+    }
+
+
+    public Optional<Person> getBookOwner(int id) {
+
+        return jdbcTemplate.query("SELECT spring_app.public.Person.* FROM spring_app.public.Book JOIN" +
+                        " spring_app.public.Person ON Book.person_id = Person.id " +
+                        "WHERE Book.id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+                .stream().findAny();
+    }
+
+    // Освбождает книгу (этот метод вызывается, когда человек возвращает книгу в библиотеку)
+    public void release(int id) {
+        jdbcTemplate.update("UPDATE spring_app.public.book SET person_id=NULL WHERE id=?", id);
+    }
+
+    // Назначает книгу человеку (этот метод вызывается, когда человек забирает книгу из библиотеки)
+    public void assign(int id, Person selectedPerson) {
+        jdbcTemplate.update("UPDATE spring_app.public.book SET person_id=? WHERE id=?", selectedPerson.getId(), id);
+    }
 
 }

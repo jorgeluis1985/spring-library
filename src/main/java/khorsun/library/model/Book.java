@@ -1,46 +1,47 @@
 package khorsun.library.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Book {
-    private int bookId;
-    private String name;
+    private int id;
+
+    @NotEmpty(message = "Books name should not be empty")
+    @Size(min = 2, max = 100, message = " Books name should be between 2 and 100 characters")
+    private String title;
+
+    @NotEmpty(message = "Author should not be empty")
+    @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters")
     private String author;
+
+    @Min(value = 1500, message = "Year should be greater then 1500")
     private int year;
 
-    private int personId;
-
     public Book() {
+
     }
 
-    public Book(int bookId, String name, String author, int year,int personId) {
-        this.bookId = bookId;
-        this.name = name;
+    public Book(String title, String author, int year) {
+        this.title = title;
         this.author = author;
         this.year = year;
-        this.personId= personId;
     }
 
-    public int getPersonId() {
-        return personId;
+    public int getId() {
+        return id;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getBookId() {
-        return bookId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
