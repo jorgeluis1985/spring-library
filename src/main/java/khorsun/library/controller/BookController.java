@@ -42,7 +42,7 @@ public class BookController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookDAO.show(id));
-
+        //find book owner, if this person has book we show this person, else we get lists of all person to release the book
         Optional<Person> bookOwner = bookDAO.getBookOwner(id);
 
         if (bookOwner.isPresent())
